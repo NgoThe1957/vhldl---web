@@ -446,6 +446,7 @@ h2,.ph h2{font-weight:600;letter-spacing:.005em}
 
 #tktable .tkl{white-space:normal;min-width:8.5em;max-width:15em;line-height:1.35;font-size:.92em}
 .imgph{display:block;margin:10px 0;padding:10px 14px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-style:italic;text-align:center;font-size:.92em}
+.tile .tbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.tile .tbtns .btn{padding:5px 10px;font-size:.78rem}
 
 </style>
 </head>
@@ -1048,10 +1049,13 @@ $("vols").addEventListener("click",ev=>{const b=ev.target.closest("[data-act]");
 const TTX={};DATA.forEach(e=>e.volumes.forEach(v=>{if(ISVH(v)){const n=VOLN(v);TTX[n]=TTX[n]||{n:0,per:{}};TTX[n].n++;if(e.period_name&&e.sources[0]&&e.sources[0].volume===v)TTX[n].per[e.period_name]=(TTX[n].per[e.period_name]||0)+1;}}));
 const TTOCR=42;
 $("tiles").innerHTML=Array.from({length:42},(_,i)=>i+1).map(n=>{const x=TTX[n];if(x){const per=Object.entries(x.per).sort((a,b)=>b[1]-a[1])[0];
- return `<button class="tile tilex" data-ttv="TTVHVN_${String(n).padStart(3,"0")}"><b>Tập ${String(n).padStart(2,"0")}</b>${per?`<small>${esc(per[0])}</small>`:""}<span class="pill ok">Đã có tra cứu · ${x.n.toLocaleString("vi-VN")} mục</span></button>`;}
+ const v="TTVHVN_"+String(n).padStart(3,"0");return `<div class="tile tilex"><b>Tập ${String(n).padStart(2,"0")}</b>${per?`<small>${esc(per[0])}</small>`:""}<span class="pill ok">Đã có tra cứu · ${x.n.toLocaleString("vi-VN")} mục</span><span class="tbtns"><button class="btn" data-act="toc" data-v="${v}">Mục lục</button><button class="btn ghost" data-act="read" data-v="${v}">Đọc</button><button class="btn ghost" data-act="find" data-v="${v}">Tra cứu</button></span></div>`;}
  if(n===42)return `<button class="tile tilex" data-open42="1"><b>Tập 42</b><small>Tổng mục lục cả bộ</small><span class="pill ok">Đã chuyển chữ · Đọc tổng mục lục</span></button>`;
  return `<div class="tile"><b>Tập ${String(n).padStart(2,"0")}</b><span class="pill ${n<=TTOCR?"run":""}">${n<=TTOCR?"Đã chuyển chữ · chờ trích xuất":"Đang chuyển sang chữ"}</span></div>`}).join("");
-$("tiles").addEventListener("click",ev=>{if(ev.target.closest("[data-open42]")){openPage("TTVHVN_042",5,"");return;}const b=ev.target.closest("[data-ttv]");if(!b)return;go("tracuu");st.vol=b.dataset.ttv;$("vol").value=st.vol;st.cur=null;chips();list();});
+$("tiles").addEventListener("click",ev=>{if(ev.target.closest("[data-open42]")){openPage("TTVHVN_042",5,"");return;}const b=ev.target.closest("[data-act]");if(!b)return;const v=b.dataset.v;
+ if(b.dataset.act==="toc"){go("tracuu");setTimeout(()=>tocOpen(true,v),50);}
+ if(b.dataset.act==="read"){const T0=(TOCS[v]||[])[0];openPage(v,T0?T0.pdf:1,"");}
+ if(b.dataset.act==="find"){go("tracuu");st.vol=v;$("vol").value=v;st.cur=null;chips();list();}});
 // Cầu nối Sử – Văn
 const BRIDGE=DATA.filter(e=>e.type==="person"&&BOTH(e)).map(e=>[e,(WORKSOF(e).match(/data-id/g)||[]).length]).sort((a,b)=>b[1]-a[1]||a[0].name.localeCompare(b[0].name,"vi"));
 $("bridge").innerHTML=`<p class="sub" style="margin:0 0 12px">${BRIDGE.length} nhân vật có mặt ở cả hai bộ sách. Bấm vào để xem phiếu: phần lịch sử, tiểu sử văn học và danh sách tác phẩm.</p><div class="picks">`+BRIDGE.slice(0,24).map(([e,k])=>`<button class="pick" data-open="${e.id}"><small>${k?k+" tác phẩm trong Tổng tập":"Nhân vật"}${e.time?" · "+esc(e.time):""}</small><b>${esc(e.name)}</b><span>${esc(e.description)}</span></button>`).join("")+`</div>`;
