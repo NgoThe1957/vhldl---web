@@ -379,6 +379,7 @@ blockquote{margin:6px 0 0;padding:6px 12px;border-left:3px solid var(--accent);c
 .ft{margin:14px 0;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:10px;padding:12px 14px;background:var(--paper)}.ft h3{margin:0 0 6px}.ftb{margin:10px 0}.ftb .lab{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px}.ftb pre{white-space:pre-wrap;font-family:inherit;font-size:1rem;line-height:1.65;margin:6px 0 0;text-align:left}.ftb.prose pre{text-align:justify}.cpy{font:inherit;font-size:.78rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:3px 10px;cursor:pointer;text-transform:none;letter-spacing:0}.cpy:hover{border-color:var(--brand);color:var(--brand)}.ftsrc{font-size:.84rem;color:var(--muted);margin-top:8px}.ftlist{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .bl{text-decoration:underline dotted #c8641e;text-decoration-thickness:2px;text-underline-offset:3px;cursor:help}.blc{display:inline-block;margin-left:10px;font-size:.78rem;font-weight:600;color:#a04f12;background:#fbeee2;border-radius:999px;padding:2px 9px}#bltip{position:fixed;z-index:10001;max-width:320px;background:#fffdf8;color:#1c2620;border:1px solid #e2c9b0;border-left:4px solid #c8641e;border-radius:8px;padding:10px 12px;font-size:.88rem;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.18)}#bltip q{font-weight:600}
 .rws{flex-basis:100%;font-size:.85rem;color:#4a5a50}.rwb{background:none;border:0;padding:0;color:#1f5a43;text-decoration:underline;cursor:pointer;font:inherit}
+.shotbox{margin:16px 0;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}.shotbox h3{margin:0 0 8px;font-family:var(--f-display)}.shoth{margin:0 0 12px;padding-left:20px;color:var(--muted);line-height:1.6}.shotpick{display:inline-block;cursor:pointer;margin-bottom:10px}.shotp{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}.shotp img{max-height:120px;max-width:45%;border-radius:8px;border:1px solid var(--line)}.shotbox textarea{width:100%;box-sizing:border-box;margin-bottom:10px;font:inherit;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 .msgov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px}.msgov[hidden]{display:none}.msgdlg{background:var(--paper);color:var(--ink);border-radius:14px;max-width:520px;width:100%;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.3)}.msgdlg h3{margin:0 0 6px;font-size:1.1rem}.msgh{font-size:.92rem;color:var(--muted);margin:0 0 10px}.msgdlg textarea{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}.msgbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.msgok{margin:10px 0 0;color:var(--brand);font-size:.92rem}.msgb{margin-left:6px}.msgcta{background:var(--brand-soft);border-left:4px solid var(--brand);padding:12px 14px;border-radius:8px;margin:10px 0;line-height:1.6}.msgcta .btn{margin-top:8px;display:inline-block}
 .wwrap{position:relative;align-self:flex-start;display:inline-block;margin-top:16px}.wwrap .welcome{margin-top:0}.wtip{position:absolute;left:calc(100% + 16px);bottom:-14px;width:min(500px,60vw);background:rgba(255,253,248,.97);color:#1c2620;font-size:.95rem;line-height:1.65;text-align:justify;hyphens:auto;padding:14px 18px;border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.3);opacity:0;visibility:hidden;transform:translateX(-6px);transition:opacity .25s,transform .25s;z-index:50;pointer-events:none;font-style:italic}.wwrap:hover .wtip,.wwrap:focus-within .wtip{opacity:1;visibility:visible;transform:none}@media (hover:none),(max-width:820px){.wwrap{display:block;align-self:stretch}.wtip{position:static;display:block;width:auto;max-width:560px;margin-top:14px;opacity:1;visibility:visible;transform:none;font-size:.92rem;padding:12px 15px;box-shadow:0 4px 16px rgba(0,0,0,.25)}}
 .hd details{background:var(--paper);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:4px 16px}.hd summary{cursor:pointer;font-weight:700;font-size:1.05rem;padding:10px 0;color:var(--brand)}.hd ul{margin:0 0 12px;padding-left:20px;line-height:1.7}.hd li{margin:4px 0}
@@ -1291,6 +1292,30 @@ function box(){let b=document.getElementById("msgbox");if(b)return b;
 window.MSGBOX=function(ctx){const b=box();b.hidden=false;document.getElementById("msgok").hidden=true;
  const t=document.getElementById("msgtxt");t.value="Góp ý Thư viện VHLDL\n"+(ctx?ctx+"\n":"")+"Chỗ sai: \nĐề nghị sửa: ";t.focus();t.setSelectionRange(t.value.length-("\nĐề nghị sửa: ".length),t.value.length-("\nĐề nghị sửa: ".length));};
 document.addEventListener("click",ev=>{const g=ev.target.closest("[data-msg]");if(g){ev.preventDefault();ev.stopPropagation();MSGBOX(g.dataset.msg);}},true);
+})();
+// ===== Gửi ảnh chụp màn hình (28-10) =====
+(function(){
+const MURL="https://m.me/the.ngoxuan.3781";
+function mk(){const cta=document.querySelector(".msgcta");if(!cta||document.getElementById("shotbox"))return;
+ const d=document.createElement("div");d.id="shotbox";d.className="shotbox";
+ d.innerHTML=`<h3>Gửi kèm ảnh chụp màn hình</h3>
+ <ol class="shoth"><li><b>Chụp màn hình</b> chỗ sai. iPhone: bấm cùng lúc nút nguồn + nút tăng âm lượng. Máy Mac: bấm ⌘ Command + Shift + 4 rồi kéo chọn vùng.</li>
+ <li>Bấm <b>Chọn ảnh</b> bên dưới, chọn ảnh vừa chụp (chọn được nhiều ảnh), ghi vài chữ về chỗ sai.</li>
+ <li>Bấm <b>Gửi ảnh qua Messenger</b> → chọn <b>Messenger</b> → chọn <b>Ngô Xuân Thể</b> → Gửi.</li></ol>
+ <label class="btn ghost shotpick">Chọn ảnh<input type="file" id="shotf" accept="image/*" multiple hidden></label>
+ <div id="shotp" class="shotp"></div>
+ <textarea id="shott" rows="3" placeholder="Ghi chú: tập mấy, trang mấy, chỗ nào sai, đề nghị sửa thế nào…"></textarea>
+ <div class="msgbtns"><button class="btn" id="shotsend">Gửi ảnh qua Messenger</button></div>
+ <p class="msgok" id="shotn" hidden></p>`;
+ cta.after(d);
+ const f=d.querySelector("#shotf"),pv=d.querySelector("#shotp"),n=d.querySelector("#shotn");
+ f.onchange=()=>{pv.innerHTML="";[...f.files].forEach(x=>{const i=document.createElement("img");i.src=URL.createObjectURL(x);i.alt="Ảnh chụp màn hình";pv.appendChild(i);});};
+ d.querySelector("#shotsend").onclick=async()=>{const files=[...f.files];const text="Góp ý Thư viện VHLDL (kèm ảnh chụp màn hình)\n"+(d.querySelector("#shott").value||"");
+  if(!files.length){n.hidden=false;n.textContent="Bạn chưa chọn ảnh. Bấm “Chọn ảnh” trước nhé.";return;}
+  try{if(navigator.canShare&&navigator.canShare({files})){await navigator.share({files,text});n.hidden=false;n.textContent="✓ Đã mở bảng chia sẻ. Chọn Messenger → Ngô Xuân Thể → Gửi. Cảm ơn bạn!";return;}}catch(e){if(e&&e.name==="AbortError")return;}
+  try{await navigator.clipboard.writeText(text);}catch(_){}
+  n.hidden=false;n.innerHTML=`Máy này chưa gửi kèm ảnh tự động được. Lời ghi chú đã được chép sẵn. Bạn mở <b>Messenger</b>, vào cuộc trò chuyện với anh Thể, bấm biểu tượng <b>ảnh</b> để chọn ảnh vừa chụp, rồi chạm giữ ô nhập → <b>Dán</b> → <b>Gửi</b>. <a href="${MURL}" target="_blank" rel="noopener">Mở Messenger của anh Thể</a>.`;};}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mk);else mk();
 })();
 
 // ================= Mũi tên quay về nơi vừa đọc =================
