@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thư viện số VHLDL</title>
-<script>document.documentElement.setAttribute("data-theme","light")</script>
+<script>document.documentElement.setAttribute("data-theme","dark")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Serif:wght@500;600;700&family=Lora:ital,wght@1,400;1,600&family=Dancing+Script:wght@600&display=swap">
 <style>
@@ -414,15 +414,9 @@ blockquote{margin:6px 0 0;padding:6px 12px;border-left:3px solid var(--accent);c
 p,.desc,.src>div,blockquote,.pick span,#vtext,#vtext p,.letter p{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
 .sub,.count,.tkmuted,.crumb{text-align:left}
 
-/* ===== Giao diện "Sơn mài Hội An" (23-10): giấy dó, son đỏ, vàng kim, chàm ===== */
-:root[data-theme="light"]{
- --bg:#f6f0e4; --paper:#fffbf3; --ink:#231c16; --muted:#6b5f53; --line:#e6d9c3;
- --brand:#7d2a1e; --brand-ink:#fffaf0; --brand-soft:#f6e6dd;
- --accent:#a0731f; --accent-soft:#f4e8cf; --blue:#2a4f6e;
- --c1:#2f5d46; --c1s:#e5efe7; --c2:#2a4f6e; --c2s:#e4ebf2; --c3:#a0731f; --c3s:#f5ecd6;
- --c4:#7d2a1e; --c4s:#f6e6dd; --c5:#1f6a6a; --c5s:#e0f0ee; --c6:#6b4a2b; --c6s:#f1e7da;
- --tipbg:#fffaf0; --tipline:#e8d6b4; --herobg:#120d0a; --heroink:#f8f1e2; --herokick:#e7c27d;
- --f-display:"Playfair Display","Noto Serif",Georgia,serif; color-scheme:light}
+/* ===== Giao diện tối xanh rêu (28-10) ===== */
+/* Màu anh Thể chọn (28-10): nền tối xanh rêu, chữ xanh ngọc, điểm vàng kim — dùng bộ màu tối gốc, cố định */
+:root[data-theme="dark"]{--f-display:"Playfair Display","Noto Serif",Georgia,serif;color-scheme:dark}
 body{font-size:15.5px;letter-spacing:.005em;background:var(--bg) radial-gradient(1200px 500px at 85% -10%,rgba(160,115,31,.07),transparent 70%) no-repeat}
 .top{border-top:3px solid var(--brand);box-shadow:0 1px 0 var(--line),0 6px 20px rgba(60,35,10,.04)}
 .logo b{color:var(--brand);letter-spacing:.04em}
@@ -434,7 +428,7 @@ body{font-size:15.5px;letter-spacing:.005em;background:var(--bg) radial-gradient
 .hero .kick,.kick{color:var(--herokick)}
 .ph .kick,.route .kick{color:var(--accent)}
 .welcome{color:var(--brand);border-radius:999px;padding:13px 26px;font-family:var(--f-display);letter-spacing:.06em;transition:transform .2s,box-shadow .2s}
-.welcome:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.3)}
+.welcome:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.3);background:rgba(31,50,39,.95);border-color:var(--herokick)}
 .wtip{font-family:var(--f-display);font-size:1.02rem;line-height:1.7;border-left:3px solid var(--accent)}
 h2,.ph h2{font-weight:600;letter-spacing:.005em}
 .ph h2::after{content:"";display:block;width:56px;height:2px;margin-top:10px;background:linear-gradient(90deg,var(--accent),transparent)}
@@ -442,7 +436,14 @@ h2,.ph h2{font-weight:600;letter-spacing:.005em}
 .fcard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(60,35,10,.12);border-color:var(--tipline)}
 .stat b,.tile b{font-family:var(--f-display)}
 .btn{border-radius:999px}
-::selection{background:#f0d9a8;color:#231c16}
+::selection{background:#3d5a46;color:#f4efe2}
+.wtip{background:rgba(27,35,30,.97);color:var(--ink);border:1px solid var(--line)}
+#bltip{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.welcome{background:rgba(20,26,22,.88);color:var(--herokick);border:1px solid rgba(159,211,168,.5)}
+.bl{text-decoration-color:#e0a85e}
+.blc{background:#3a2d1a;color:#f0c067}
+
+#tktable .tkl{white-space:normal;min-width:8.5em;max-width:15em;line-height:1.35;font-size:.92em}
 
 </style>
 </head>
@@ -465,9 +466,9 @@ h2,.ph h2{font-weight:600;letter-spacing:.005em}
   <li><a href="#tracuu" data-r="tracuu">Tài liệu tra cứu</a></li>
   <li><a href="#lsvn" data-r="lsvn">Lịch sử Việt Nam</a></li>
   <li><a href="#ttvhvn" data-r="ttvhvn">Tổng hợp văn học Việt Nam</a></li>
+  <li><a href="#timeline" data-r="timeline">Timeline</a></li>
   <li><a href="#tacgia" data-r="tacgia">Tác giả A–Z</a></li>
   <li><a href="#tacpham" data-r="tacpham">Tác phẩm A–Z</a></li>
-  <li><a href="#timeline" data-r="timeline">Timeline</a></li>
   <li><a href="#docpdf" data-r="docpdf">Đọc sách PDF</a></li>
   <li><a href="#gopy" data-r="gopy">Góp ý</a></li>
   <li><a href="#huongdan" data-r="huongdan">Hướng dẫn</a></li>
@@ -493,9 +494,9 @@ h2,.ph h2{font-weight:600;letter-spacing:.005em}
  <div class="feats">
   <a class="fcard" href="#lsvn" style="--fc:var(--c1)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c1)" stroke-width="2"><path d="M6 18h36M10 18l14-9 14 9"/><path d="M12 18v20M36 18v20M20 24h8v14h-8z"/><path d="M8 38h32M16 18v-3M32 18v-3"/><path d="M14 24h2M32 24h2" stroke-width="3"/></svg><h3>Lịch sử Việt Nam</h3><p>15 tập chuyên khảo</p><span class="go">Khám phá →</span></a>
   <a class="fcard" href="#ttvhvn" style="--fc:var(--c2)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c2)" stroke-width="2"><path d="M6 34c6-2 12-2 18 1 6-3 12-3 18-1V14c-6-2-12-2-18 1-6-3-12-3-18-1z"/><path d="M24 15v20"/><path d="M40 6c-6 4-10 10-12 18l3-1c2-6 5-11 9-17z" fill="var(--c2s)"/></svg><h3>Tổng hợp văn học Việt Nam</h3><p>Hệ thống hóa theo các giai đoạn</p><span class="go">Khám phá →</span></a>
+  <a class="fcard" href="#timeline" style="--fc:var(--c5)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c5)" stroke-width="2"><path d="M24 4v40"/><circle cx="24" cy="10" r="3" fill="var(--c5s)"/><circle cx="24" cy="24" r="3" fill="var(--c5s)"/><circle cx="24" cy="38" r="3" fill="var(--c5s)"/><path d="M27 10h10M13 24h8M27 38h8"/></svg><h3>Timeline</h3><p>Dòng chảy lịch sử và văn học</p><span class="go">Xem ngay →</span></a>
   <a class="fcard" href="#tacgia" style="--fc:var(--c3)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c3)" stroke-width="2"><circle cx="24" cy="16" r="7" fill="var(--c3s)"/><path d="M10 40c1-8 7-13 14-13s13 5 14 13z" fill="var(--c3s)"/><path d="M21 27l3 5 3-5"/></svg><h3>Tác giả A&#8288;–&#8288;Z</h3><p>Thông tin và tác phẩm các tác giả</p><span class="go">Tra cứu →</span></a>
   <a class="fcard" href="#tacpham" style="--fc:var(--c4)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c4)" stroke-width="2"><path d="M8 10h12a4 4 0 014 4v24a3 3 0 00-3-3H8z" fill="var(--c4s)"/><path d="M40 10H28a4 4 0 00-4 4v24a3 3 0 013-3h13z" fill="var(--c4s)"/></svg><h3>Tác phẩm A&#8288;–&#8288;Z</h3><p>Thông tin và nội dung các tác phẩm</p><span class="go">Tra cứu →</span></a>
-  <a class="fcard" href="#timeline" style="--fc:var(--c5)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c5)" stroke-width="2"><path d="M24 4v40"/><circle cx="24" cy="10" r="3" fill="var(--c5s)"/><circle cx="24" cy="24" r="3" fill="var(--c5s)"/><circle cx="24" cy="38" r="3" fill="var(--c5s)"/><path d="M27 10h10M13 24h8M27 38h8"/></svg><h3>Timeline</h3><p>Dòng chảy lịch sử và văn học</p><span class="go">Xem ngay →</span></a>
   <a class="fcard" href="#nghiencuu" style="--fc:var(--c6)"><svg viewBox="0 0 48 48" fill="none" stroke="var(--c6)" stroke-width="2"><path d="M12 6h18l8 8v28H12z" fill="var(--c6s)"/><path d="M30 6v8h8M17 20h14M17 26h14M17 32h9"/><path d="M34 30l6-6 3 3-6 6-4 1z"/></svg><h3>Sách tham khảo</h3><p>Các sách, bài nghiên cứu mà tác giả hai bộ sách đã dùng</p><span class="go">Khám phá →</span></a>
  </div>
 
@@ -819,6 +820,8 @@ function LITBOX(e){const L=e.lit;if(!L)return"";const au=L.author_id&&byId[L.aut
 let WBY=null;function WORKSOF(e){if(e.type!=="person")return"";if(!WBY){WBY={};DATA.forEach(w=>{const a=w.lit&&w.lit.author_id;if(a)(WBY[a]=WBY[a]||[]).push(w);});}
  const W=(WBY[e.id]||[]);if(!W.length)return"";return `<h3>Tác phẩm trong Tổng tập (${W.length})</h3><div class="rels">${W.slice(0,150).map(w=>`<button class="rel" data-id="${w.id}"><i>${esc(w.name)}</i></button>`).join("")}</div>`;}
 const LOCALPDF=location.protocol==="file:";
+const NOFULL=false; /* 28-10: anh Thể yêu cầu tạm hiện toàn văn để kiểm tra; khi cần ẩn lại đổi thành !LOCALPDF */
+const NOFULLMSG="Toàn văn đang tạm ẩn trên trang công khai, trong khi chờ cơ quan chủ quản (Viện Sử học, Viện Văn học, Nhà xuất bản Khoa học Xã hội) cho phép. Thư viện vẫn giữ đầy đủ phần tra cứu, trích dẫn ngắn và vị trí trong sách để bạn đọc tìm đến sách in.";
 const PDFDIR="file:///Users/ngoxuanthe/Desktop/VHLDL%20/01_%20Sourse/";
 function PDFURL(vol,p){return PDFDIR+(ISVH(vol)?"02_THVHVN/":"01_LSVN/")+vol+".pdf#page="+p;}
 function PDFA(vol,p,lab){return LOCALPDF?` <a class="pdfa" href="${PDFURL(vol,p)}" target="_blank" rel="noopener" title="Mở trang sách gốc (PDF trên máy Mac)">${lab||"Mở PDF"} ↗</a>`:"";}
@@ -828,7 +831,7 @@ let FTSRUN=0;
 function loadP(v){return new Promise(res=>{if(PAGES[v])return res(true);if(_pq[v]){_pq[v].push(()=>res(true));return;}_pq[v]=[()=>res(true)];const sc=document.createElement("script");sc.src="pages/"+v+".js";sc.onerror=()=>{delete _pq[v];res(false);};document.head.appendChild(sc);});}
 function NRM(o){let t="",m=[];for(let i=0;i<o.length;i++){const f=fold(o[i]);if(/[a-z0-9]/.test(f)){for(const ch of f){t+=ch;m.push(i);}}else if(t&&t[t.length-1]!==" "){t+=" ";m.push(i);}}return{t,m};}
 document.addEventListener("click",ev=>{const b=ev.target.closest("[data-tochits]");if(!b)return;ev.preventDefault();ev.stopPropagation();st.cur=null;$("card").innerHTML=`<h2>“${esc(st.q)}”</h2>`+tocHitsHTML(tocHits(st.q),st.q);$("card").scrollIntoView({block:"start"});},true);
-async function fullSearch(q,short){const run=++FTSRUN;q=q.trim();const fq=NRM(q.normalize("NFC")).t.trim();
+async function fullSearch(q,short){if(NOFULL){st.cur=null;$("card").innerHTML=`<div class="eyebrow">Tìm trong nguyên văn sách</div><h2>“${esc(q)}”</h2><p class="note">${NOFULLMSG}</p>`;return;}const run=++FTSRUN;q=q.trim();const fq=NRM(q.normalize("NFC")).t.trim();
  if(fq.length<3)return;st.cur=null;
  $("card").innerHTML=`<div class="eyebrow">Tìm trong nguyên văn sách</div><h2>“${esc(q)}”</h2><p class="ftsrc" id="ftsst">Đang đọc các tập sách…</p><div class="ftsbar"><i id="ftsbar"></i></div><button class="cpy" id="ftsstop">Dừng tìm</button><div id="ftsres"></div>`;
  $("ftsstop").onclick=()=>{FTSRUN++;$("ftsst").textContent+=" — đã dừng.";};
@@ -923,7 +926,7 @@ function reflow(t){
  flush(inFn?"fn":"");return out.join("");}
 // --- xem trang ---
 let vv="LSVN_001",vp=null,vq="";
-function openPage(vol,p,q){p=+p;if(!PAGES[vol]){$("vtitle").textContent="Đang tải Tập "+VOLN(vol)+"…";$("vtext").innerHTML="";$("viewer").hidden=false;loadPages(vol,()=>openPage(vol,p,q));return;}const P=PAGES[vol];if(!P||!P[p])return;vv=vol;vp=p;vq=q||"";const [pr,t]=P[p];const EL=(ERRS[vol]||{})[p]||[];
+function openPage(vol,p,q){p=+p;if(NOFULL){if(p<1)p=1;vv=vol;vp=p;vq="";const TOC=TOCS[vol]||[];const sec=[...TOC].reverse().find(x=>x.pdf&&x.pdf<=p);$("vtitle").innerHTML=`${vol} · Tập ${VOLN(vol)} · trang PDF ${p}`;$("vtext").innerHTML=`<div class="vpage"><p><b>${ISVH(vol)?"Tổng tập Văn học Việt Nam":"Lịch sử Việt Nam"}, Tập ${VOLN(vol)}, trang PDF ${p}.</b></p><p>${NOFULLMSG}</p><p style="text-align:right"><button class="cpy msgb" data-msg="${vol} · Tập ${VOLN(vol)} · trang PDF ${p}">Góp ý qua Messenger</button></p></div>`;$("viewer").hidden=false;$("vclose").focus();return;}if(!PAGES[vol]){$("vtitle").textContent="Đang tải Tập "+VOLN(vol)+"…";$("vtext").innerHTML="";$("viewer").hidden=false;loadPages(vol,()=>openPage(vol,p,q));return;}const P=PAGES[vol];if(!P||!P[p])return;vv=vol;vp=p;vq=q||"";const [pr,t]=P[p];const EL=(ERRS[vol]||{})[p]||[];
  const TOC=TOCS[vol]||[];const tocStart=Math.max(...TOC.map(x=>x.pdf),0);
  const ch=[...TOC].reverse().find(x=>x.lv==="C"&&x.pdf<=p),sec=[...TOC].reverse().find(x=>x.lv!=="0"&&x.pdf<=p);
  $("vtitle").innerHTML=`${vol} · Tập ${VOLN(vol)} · Trang in ${pr??"?"} · trang PDF ${p}${PDFA(vol,p,"Mở trang PDF gốc")}${EL.length?` <span class="blc" title="Chỗ máy nghi đọc sai, chưa sửa – đối chiếu với trang PDF">⚑ ${EL.length} chỗ Báo lỗi</span>`:""}${ch&&p<=tocStart+30?`<span class="vsec">${esc(ch.t)}${sec&&sec!==ch?" › "+esc(sec.t):""}</span>`:""}`;
@@ -1146,9 +1149,9 @@ function card(){const S=SETS[set],el=$("tkcard");
  ${x.ex?`<h4>Mục tra cứu theo loại</h4>${bars(x.e,en)}<div class="vbtns"><button class="btn" data-tk="toc">Mục lục</button><button class="btn ghost" data-tk="read">Đọc từ đầu</button><button class="btn ghost" data-tk="find">Tra cứu tập này</button></div>`:`<p class="tkmuted">${x.p?"Đã chuyển sang chữ, đang chờ trích xuất nhân vật, sự kiện, địa danh…":"Máy đang chuyển tập này sang chữ."}</p>`}`;}
 function vols(){const S=SETS[set];$("tkvols").innerHTML=`<button class="tkv tot" data-i="0" aria-pressed="${!sel}">Tổng</button>`+[...Array(S.n)].map((_,k)=>{const x=vinfo(k+1);return `<button class="tkv ${x.ex?"ex":x.p?"ocr":"wait"}" data-i="${k+1}" aria-pressed="${sel===k+1}" title="Tập ${k+1}">${k+1}</button>`;}).join("");}
 function table(){const S=SETS[set];let rows="";for(let k=1;k<=S.n;k++){const x=vinfo(k),en=entSum(x.e);
- rows+=`<tr data-i="${k}" class="${sel===k?"on":""}"><td>Tập ${k}</td>${set==="LSVN"?`<td class="tkl">${x.meta[1]}</td>`:""}<td>${x.p?nf(x.p[0]):"–"}</td><td>${x.p?nf(x.p[1]):"–"}</td><td><span class="tkst ${x.p?"ok":"no"}">${x.p?"Xong":"Đang xử lý"}</span></td><td><span class="tkst ${x.ex?"ok":"no"}">${x.ex?"Xong":"Chờ"}</span></td><td>${en?nf(en):"–"}</td></tr>`;}
+ rows+=`<tr data-i="${k}" class="${sel===k?"on":""}"><td>Tập ${k}</td><td class="tkl">${set==="LSVN"?x.meta[1]:esc((typeof volMeta==="function"?volMeta(x.v).t:"")||"")}</td><td>${x.p?nf(x.p[0]):"–"}</td><td>${x.p?nf(x.p[1]):"–"}</td><td><span class="tkst ${x.p?"ok":"no"}">${x.p?"Xong":"Đang xử lý"}</span></td><td><span class="tkst ${x.ex?"ok":"no"}">${x.ex?"Xong":"Chờ"}</span></td><td>${en?nf(en):"–"}</td></tr>`;}
  const vs=[...Array(S.n)].map((_,k)=>vinfo(k+1)),pg=vs.reduce((a,x)=>a+(x.p?x.p[0]:0),0),w=vs.reduce((a,x)=>a+(x.p?x.p[1]:0),0),en=entSum(TK.entTot[set]);
- $("tktable").innerHTML=`<thead><tr><th>Tập</th>${set==="LSVN"?"<th class=tkl>Nội dung</th>":""}<th>Trang</th><th>Số chữ</th><th>Chuyển chữ</th><th>Trích xuất</th><th>Mục tra cứu</th></tr></thead><tbody>${rows}</tbody><tfoot><tr data-i="0" class="${sel?"":"on"}"><td>Tổng</td>${set==="LSVN"?"<td></td>":""}<td>${nf(pg)}</td><td>${nf(w)}</td><td>${vs.filter(x=>x.p).length}/${S.n}</td><td>${vs.filter(x=>x.ex).length}/${S.n}</td><td>${en?nf(en):"–"}</td></tr></tfoot>`;}
+ $("tktable").innerHTML=`<thead><tr><th>Tập</th><th class=tkl>Nội dung</th><th>Trang</th><th>Số chữ</th><th>Chuyển chữ</th><th>Trích xuất</th><th>Mục tra cứu</th></tr></thead><tbody>${rows}</tbody><tfoot><tr data-i="0" class="${sel?"":"on"}"><td>Tổng</td><td></td><td>${nf(pg)}</td><td>${nf(w)}</td><td>${vs.filter(x=>x.p).length}/${S.n}</td><td>${vs.filter(x=>x.ex).length}/${S.n}</td><td>${en?nf(en):"–"}</td></tr></tfoot>`;}
 function draw(){document.querySelectorAll("#tktabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.set===set));vols();card();table();}
 $("tktabs").addEventListener("click",ev=>{const b=ev.target.closest("[data-set]");if(!b)return;set=b.dataset.set;sel=0;draw();});
 function pick(ev){const b=ev.target.closest("[data-i]");if(!b)return;sel=+b.dataset.i;draw();}
