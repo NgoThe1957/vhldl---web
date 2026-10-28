@@ -447,6 +447,7 @@ h2,.ph h2{font-weight:600;letter-spacing:.005em}
 #tktable .tkl{white-space:normal;min-width:8.5em;max-width:15em;line-height:1.35;font-size:.92em}
 .imgph{display:block;margin:10px 0;padding:10px 14px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-style:italic;text-align:center;font-size:.92em}
 .tile .tbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.tile .tbtns .btn{padding:5px 10px;font-size:.78rem}
+#viewer.split .vbox{width:min(1400px,98vw);max-height:94vh}.splitwrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:78vh}.pdfif{width:100%;height:100%;border:1px solid var(--line);border-radius:8px;background:#fff}.splittext{overflow:auto;padding-right:6px}@media(max-width:900px){.splitwrap{grid-template-columns:1fr;height:auto}.pdfif{height:60vh}}
 
 </style>
 </head>
@@ -928,7 +929,8 @@ function reflow(t){
   if(!inFn&&x.length<med*0.8&&/[.:;!?…"”)]$/.test(x))flush("");}
  flush(inFn?"fn":"");return out.join("");}
 // --- xem trang ---
-let vv="LSVN_001",vp=null,vq="";
+let vv="LSVN_001",vp=null,vq="";let SPLIT=false;try{SPLIT=localStorage.getItem("vldl_split")==="1"}catch(_){}
+document.addEventListener("click",ev=>{if(ev.target.id==="vsplit"){SPLIT=!SPLIT;try{localStorage.setItem("vldl_split",SPLIT?"1":"0")}catch(_){}openPage(vv,vp,vq);}});
 function openPage(vol,p,q){p=+p;if(NOFULL){if(p<1)p=1;vv=vol;vp=p;vq="";const TOC=TOCS[vol]||[];const sec=[...TOC].reverse().find(x=>x.pdf&&x.pdf<=p);$("vtitle").innerHTML=`${vol} · Tập ${VOLN(vol)} · trang PDF ${p}`;$("vtext").innerHTML=`<div class="vpage"><p><b>${ISVH(vol)?"Tổng tập Văn học Việt Nam":"Lịch sử Việt Nam"}, Tập ${VOLN(vol)}, trang PDF ${p}.</b></p><p>${NOFULLMSG}</p><p style="text-align:right"><button class="cpy msgb" data-msg="${vol} · Tập ${VOLN(vol)} · trang PDF ${p}">Góp ý qua Messenger</button></p></div>`;$("viewer").hidden=false;$("vclose").focus();return;}if(!PAGES[vol]){$("vtitle").textContent="Đang tải Tập "+VOLN(vol)+"…";$("vtext").innerHTML="";$("viewer").hidden=false;loadPages(vol,()=>openPage(vol,p,q));return;}const P=PAGES[vol];if(!P||!P[p])return;vv=vol;vp=p;vq=q||"";const [pr,t]=P[p];const EL=(ERRS[vol]||{})[p]||[];
  const TOC=TOCS[vol]||[];const tocStart=Math.max(...TOC.map(x=>x.pdf),0);
  const ch=[...TOC].reverse().find(x=>x.lv==="C"&&x.pdf<=p),sec=[...TOC].reverse().find(x=>x.lv!=="0"&&x.pdf<=p);
@@ -937,7 +939,7 @@ function openPage(vol,p,q){p=+p;if(NOFULL){if(p<1)p=1;vv=vol;vp=p;vq="";const TO
  let h=linkExt(linkEnts(reflow(tm),vol,p));let bi=0;h=h.replace(/\uE000([^\uE001<]*)\uE001/g,(m,w)=>{const e=EL[bi++]||[0,0,""];return `<span class="bl" tabindex="0" data-w="${w}" data-r="${esc(e[2])}">${w}</span>`;}).replace(/[\uE000\uE001]/g,"");h=h.replace(/\[(Hình ảnh \/ bản đồ|Hình ảnh hoặc chữ Hán máy không đọc được) — xem trang PDF gốc\]/g,(m)=>`<span class="imgph">${m.slice(1,-1)}${PDFA(vol,p,"Mở trang PDF")}</span>`);
  if(vq){const words=esc(vq).split(/\s+/).filter(Boolean).map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
   if(words.length){try{const re=new RegExp(words.join("\\s+"));const m=h.match(re);if(m)h=h.slice(0,m.index)+"<mark>"+m[0]+"</mark>"+h.slice(m.index+m[0].length);}catch(_){}}}
- $("vtext").innerHTML=h?`<div style="text-align:right;margin-bottom:6px"><button class="cpy msgb" data-msg="${vol} · Tập ${VOLN(vol)} · trang PDF ${p} (trang in ${pr??"?"})">Góp ý trang này qua Messenger</button> <button class="cpy" data-cpy="vpage">Chép văn bản trang này</button></div><div class="vpage">${h}</div>`:"(trang trống)";$("viewer").hidden=false;$("vtext").scrollTop=0;
+ $("vtext").innerHTML=h?`<div style="text-align:right;margin-bottom:6px"><button class="cpy msgb" data-msg="${vol} · Tập ${VOLN(vol)} · trang PDF ${p} (trang in ${pr??"?"})">Góp ý trang này qua Messenger</button> <button class="cpy" data-cpy="vpage">Chép văn bản trang này</button>${LOCALPDF?` <button class="cpy" id="vsplit">${SPLIT?"Tắt xem song song":"⇆ Xem song song với PDF"}</button>`:""}</div><div class="vpage">${h}</div>`:"(trang trống)";if(LOCALPDF&&SPLIT&&h){const t0=$("vtext").innerHTML;$("vtext").innerHTML=`<div class="splitwrap"><iframe class="pdfif" title="Trang PDF gốc" src="${PDFURL(vol,p)}"></iframe><div class="splittext">${t0}</div></div>`;}$("viewer").classList.toggle("split",!!(LOCALPDF&&SPLIT));$("viewer").hidden=false;$("vtext").scrollTop=0;
  const m=$("vtext").querySelector("mark");if(m)m.scrollIntoView({block:"center"});$("vclose").focus();}
 $("vprev").onclick=()=>openPage(vv,vp-1,"");$("vnext").onclick=()=>openPage(vv,vp+1,"");
 $("vclose").onclick=()=>{$("viewer").hidden=true;};
