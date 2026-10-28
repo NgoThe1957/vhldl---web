@@ -932,7 +932,11 @@ function reflow(t){
 // --- xem trang ---
 let vv="LSVN_001",vp=null,vq="";let SPLIT=false;try{SPLIT=localStorage.getItem("vldl_split")==="1"}catch(_){}
 document.addEventListener("click",ev=>{if(ev.target.id==="vsplit"){SPLIT=!SPLIT;try{localStorage.setItem("vldl_split",SPLIT?"1":"0")}catch(_){}openPage(vv,vp,vq);}});
-function CHAPOF(vol,p){const T=(ISVH(vol)?TOCTT[vol]:TOCS[vol])||[];let ci=-1;for(let i=0;i<T.length;i++){if(T[i].lv==="C"&&T[i].pdf&&T[i].pdf<=p)ci=i;}return ci;}
+function CHAPOF(vol,p){const T=(ISVH(vol)?TOCTT[vol]:TOCS[vol])||[];let ci=-1;for(let i=0;i<T.length;i++){if(T[i].lv==="C"&&T[i].pdf&&T[i].pdf<=p)ci=i;}
+ const P=PAGES[vol];if(!P)return ci;const C=T.map((t,i)=>t.lv==="C"?[i,fold(t.t.replace(/^\d+\.\s*/,"").replace(/\s*\(.*$/,"")).replace(/[^a-z0-9 ]/g,"").trim()]:null).filter(x=>x&&x[1].length>2);
+ for(let q=p;q>=Math.max(1,p-80);q--){const x=P[q];if(!x)continue;const L=(x[1]||"").split("\n").filter(l=>{const r=l.trim();return r.length>2&&r===r.toUpperCase()&&/[A-ZÀ-Ỹ]/.test(r);}).map(l=>fold(l).replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim()).filter(Boolean);
+  for(const l of L.slice().reverse()){for(const [i,n] of C){if(l===n||l.replace(/^\d+ /,"")===n)return i;}}}
+ return ci;}
 function BACKTOC(vol,p){const ci=CHAPOF(vol,p);const T=(ISVH(vol)?TOCTT[vol]:TOCS[vol])||[];if(!T.length)return "";const lab=ci>=0?T[ci].t.replace(/^\d+\.\s*/,"").replace(/\s*\(.*$/,""):"";
  return `<div class="vback"><button class="btn ghost" data-backtoc="${ci}" data-vol="${vol}">↩ Về mục lục${lab?(ISVH(vol)?" "+esc(lab):" "+esc(lab.length>40?lab.slice(0,39)+"…":lab)):" Tập "+VOLN(vol)}</button></div>`;}
 document.addEventListener("click",ev=>{const b=ev.target.closest("[data-backtoc]");if(!b)return;const i=+b.dataset.backtoc,v=b.dataset.vol;$("viewer").hidden=true;go("tracuu");setTimeout(()=>{tocOpen(true,v);const el=document.getElementById("toc"+i);if(el){el.scrollIntoView({block:"start"});const tc=$("toc");if(tc)tc.scrollTop=Math.max(0,tc.scrollTop-90);el.classList.add("navflash");setTimeout(()=>el.classList.remove("navflash"),2500);}},60);});
@@ -947,9 +951,12 @@ function openPage(vol,p,q){p=+p;if(NOFULL){if(p<1)p=1;vv=vol;vp=p;vq="";const TO
  $("vtext").innerHTML=h?`<div style="text-align:right;margin-bottom:6px"><button class="cpy msgb" data-msg="${vol} · Tập ${VOLN(vol)} · trang PDF ${p} (trang in ${pr??"?"})">Góp ý trang này qua Messenger</button> <button class="cpy" data-cpy="vpage">Chép văn bản trang này</button>${LOCALPDF?` <button class="cpy" id="vsplit">${SPLIT?"Tắt xem song song":"⇆ Xem song song với PDF"}</button>`:""}</div><div class="vpage">${h}</div>${BACKTOC(vol,p)}`:"(trang trống)";if(LOCALPDF&&SPLIT&&h){const t0=$("vtext").innerHTML;$("vtext").innerHTML=`<div class="splitwrap"><iframe class="pdfif" title="Trang PDF gốc" src="${PDFURL(vol,p)}"></iframe><div class="splittext">${t0}</div></div>`;}$("viewer").classList.toggle("split",!!(LOCALPDF&&SPLIT));$("viewer").hidden=false;$("vtext").scrollTop=0;
  const m=$("vtext").querySelector("mark");if(m)m.scrollIntoView({block:"center"});$("vclose").focus();}
 $("vprev").onclick=()=>openPage(vv,vp-1,"");$("vnext").onclick=()=>openPage(vv,vp+1,"");
-$("vclose").onclick=()=>{$("viewer").hidden=true;};
+let FROMTOC=null;
+document.addEventListener("click",ev=>{const t=ev.target;if(t.closest&&t.closest("#toc .ti")){const b=t.closest(".ti");FROMTOC={vol:tocVol,id:b.id};}else if(t.closest&&!t.closest("#viewer")&&!t.closest("#toc"))FROMTOC=null;},true);
+function closeViewer(){$("viewer").hidden=true;if(FROMTOC){const f=FROMTOC;go("tracuu");setTimeout(()=>{tocOpen(true,f.vol);const ci=CHAPOF(vv,vp);const el=document.getElementById(ci>=0&&f.vol===vv?"toc"+ci:f.id)||document.getElementById(f.id);if(el){el.scrollIntoView({block:"start"});const tc=$("toc");if(tc)tc.scrollTop=Math.max(0,tc.scrollTop-90);}},60);}}
+$("vclose").onclick=closeViewer;
 $("viewer").addEventListener("click",ev=>{if(ev.target.id==="viewer")$("viewer").hidden=true;});
-document.addEventListener("keydown",ev=>{if($("viewer").hidden)return;if(ev.key==="Escape")$("viewer").hidden=true;if(ev.key==="ArrowLeft")openPage(vv,vp-1,"");if(ev.key==="ArrowRight")openPage(vv,vp+1,"");});
+document.addEventListener("keydown",ev=>{if($("viewer").hidden)return;if(ev.key==="Escape")closeViewer();if(ev.key==="ArrowLeft")openPage(vv,vp-1,"");if(ev.key==="ArrowRight")openPage(vv,vp+1,"");});
 document.addEventListener("click",ev=>{const b=ev.target.closest(".pgbtn");if(b){ev.stopPropagation();openPage(b.dataset.vol||"LSVN_001",b.dataset.page,b.dataset.q);}},true);
 // --- hover ---
 const tip=$("tip");
